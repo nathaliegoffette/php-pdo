@@ -1,0 +1,79 @@
+//COPIE DE MON INDEX.html 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    table, th, td {
+    border: 1px solid black;
+    }
+    </style>
+</head>
+<body>
+    
+
+<form action="process-form.php" method="post">
+    <label for="ville-name">Ville :</label>
+    <input type="text" id="ville-name" name="ville"></input>
+    <br>
+    <label for="haut-name">Haut :</label>
+    <input type="text" id="haut-name" name="haut"></input>
+    <br>
+    <label for="bas-name">Bas :</label>
+    <input type="text" id="bas-name" name="bas"></input>
+    <br>
+    <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+    <input type="submit" value="Submit">
+</form>
+
+
+
+<?php
+session_start();
+
+try
+{
+	// On se connecte à MySQL
+	$bdd = new PDO('mysql:host=localhost;dbname=weatherapp;charset=utf8', 'nathaliegoffette', 'becode');
+}
+catch(Exception $e)
+{
+	// En cas d'erreur, on affiche un message et on arrête tout
+        die('Erreur : '.$e->getMessage());
+}
+
+$meteoStatement = $bdd->prepare('SELECT * FROM Météo');
+$meteoStatement->execute();
+$meteo = $meteoStatement->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<table>
+        <tr>
+        <th>Ville</th>
+        <th>Haut</th>
+        <th>Bas</th>
+        </tr>
+</table>
+       
+<?php
+foreach ($meteo as $data){
+
+
+   echo  "<tr>";
+       echo "<td>" .$data['ville']. "</td>"; 
+       echo "<td>" .$data['haut']. "</td>"; 
+       echo "<td>" .$data['bas']. "</td>"; 
+    echo "</tr>";
+
+}
+?>
+
+<?php
+$_SESSION['token'] = bin2hex(random_bytes(32));
+?>
+
+</body>
+</html>

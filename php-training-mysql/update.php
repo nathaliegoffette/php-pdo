@@ -32,11 +32,13 @@ try {
 	$update_id = $_POST['id'];
 
 	$stmt = $bdd->prepare('UPDATE hiking SET name = ?, difficulty = ?, distance = ?, duration = ?, height_difference = ? WHERE id = ?');
-	$stmt->execute([$name, $difficulty, $distance, $duration, $height_difference, $update_id]);
-
-	//header('Location: read.php');
-
-
+	
+	if(isset($_POST['name'])) {
+		$stmt->execute([$name, $difficulty, $distance, $duration, $height_difference, $update_id]);
+		header('Location: read.php');
+		exit;
+	}
+	
 	?>
 	
 	<h1>Ajouter</h1>

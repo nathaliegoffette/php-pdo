@@ -42,9 +42,9 @@ foreach ($hiking as $data){
    echo  "<tr>";
        echo "<td>" .$data['name']. "</td>"; 
        echo "<td>" .$data['difficulty']. "</td>"; 
-       echo "<td>" .$data['distance']. "</td>"; 
+       echo "<td>" .$data['distance']. " km </td>"; 
        echo "<td>" .$data['duration']. "</td>"; 
-       echo "<td>" .$data['height_difference']. "</td>"; 
+       echo "<td>" .$data['height_difference']. " m </td>"; 
 
        echo '<td><a href="update.php?id=' . $data['id'] . '">Edit</a></td>';
 

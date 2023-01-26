@@ -45,8 +45,16 @@ foreach ($hiking as $data){
        echo "<td>" .$data['distance']. "</td>"; 
        echo "<td>" .$data['duration']. "</td>"; 
        echo "<td>" .$data['height_difference']. "</td>"; 
-    echo "</tr>";
 
+       echo '<td><a href="update.php?id=' . $data['id'] . '">Edit</a></td>';
+
+      echo "<td>";
+      echo "<form action='delete.php' method='post'>";
+      echo "<input type='hidden' name='id' value='" . $data['id'] . "'>";
+      echo "<input type='submit' value='Delete'>";
+      echo "</form>";
+      echo "</td>";
+      echo "</tr>";
 }
 ?>
   </table>

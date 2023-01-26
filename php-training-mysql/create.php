@@ -51,11 +51,13 @@ try {
 }
 
 // Retrieve the form data
-$name = $_POST['name'];
-$difficulty = $_POST['difficulty'];
-$distance = $_POST['distance'];
-$duration = $_POST['duration'];
-$height_difference = $_POST['height_difference'];
+try {
+	
+	$name = $_POST['name'];
+	$difficulty = $_POST['difficulty'];
+	$distance = $_POST['distance'];
+	$duration = $_POST['duration'];
+	$height_difference = $_POST['height_difference'];
 
 // Insert the data into the database
 $query = "INSERT INTO hiking (name, difficulty, distance, duration, height_difference) VALUES (:name, :difficulty, :distance, :duration, :height_difference)";
@@ -67,18 +69,17 @@ $stmt->bindValue(':duration', $duration, PDO::PARAM_INT);
 $stmt->bindValue(':height_difference', $height_difference, PDO::PARAM_INT);
 $stmt->execute();
 
+	echo "exécutée";
 
+} catch (exception $e) {
 
-if ($stmt->execute()) {
-    echo "New hiking created successfully";
-} else {
-    $error = $stmt->errorInfo();
-    echo "Error: " . $error[2];
+	echo "échec";
 }
+
 exit;
 
 // Redirect the user to the read.php page
-header('Location: read.php');
+//header('Location: read.php');
 ?>
 </body>
 </html>
